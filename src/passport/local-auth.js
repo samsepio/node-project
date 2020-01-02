@@ -5,7 +5,7 @@ const User=require('../model/database');
 
 passport.use('local-signin', new LocalStrategy({
 	usernameField: 'email'
-},async(email,password,cb) => {
+},async(email,password,done) => {
 	const user = await User.findOne({email: email});
 	if(!user){
 		return done(null,false,{message: 'usuario no encontrado'});

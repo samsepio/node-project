@@ -1,13 +1,16 @@
 const express=require('express');
 const User=require('../model/database');
-const router=express.Router();
+const passport=require('passport');
+const router=express.Router();                             
 
 router.get('/signin',(req,res,next)=>{
 	res.render('signin');
 });
-router.post('/signin',async(req,res,next)=>{
-
-});
+router.post('/signin',passport.authenticate('local-signin',{
+	successRedirect: '/profiles',
+	failureRedirect: '/signin',
+	failureFlash: true
+}));
 router.get('/signup',(req,res,next)=>{
 	res.render('signup');
 });
@@ -39,6 +42,10 @@ router.post('/signup',async(req,res,next)=>{
                         res.redirect('/profile');
                 }
         }
+});
+router.get('/logout',(req,res,next)=>{
+	req.logout();
+	res.redirect('/');
 });
 
 module.exports=router;

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<div class="container p-4">
+			<div class="row">
+				<div class="card-columns">
+					{{#each images}}
+					<div class="card animated fadeInDown">
+						<img src="{{path}}" class="card-img-top" alt="{{filename}}">
+						<div class="card-body">
+							<h5 class="card-subtitle">{{title}}</h5>
+							<p class="card-text">{{description}}</p>
+							<i class="fas fa-clock"></i>
+							</p>
+							<a class="btn btn-block btn-dark"href="/like/{{id}}">
+								<i class="fas fa-thumbs-up"></i>Me Gusta
+							</a>
+							<a class="btn btn-warning btn-block"href="/img/{{id}}">
+								<i class="fas fa-question-circle"></i>Ver Mas
+							</a>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
