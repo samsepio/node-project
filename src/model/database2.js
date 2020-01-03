@@ -5,6 +5,7 @@ const imageSchema = new Schema({
 	title:{type: String},
 	description:{type: String},
 	descript:{type: String},
+	name:{type: String},
 	year:{type: Number},
 	favorite:{type: String},
 	religion:{type: String},

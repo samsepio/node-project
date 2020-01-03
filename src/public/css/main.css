@@ -3,7 +3,7 @@ body{
 	background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);  /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to right, #92FE9D, #00C9FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-h1{
+h1,h2,h3,h4,h6{
     font-family: 'Acme', sans-serif;
     font-family: 'Pacifico', cursive;
 }

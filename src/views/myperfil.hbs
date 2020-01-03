@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<br>
+<div class="card mb-3 mx-auto " style="max-width: 540px;">
+  {{#each imagess}}
+  <div class="row no-gutters mx-auto ">
+    <div class="col-md-4 mx-auto ">
+            <img src="{{path}}" class="card-img" alt="{{filename}}">
+    </div>
+    <div class="col-md-8 mx-auto ">
+      <div class="card-body mx-auto ">
+        <h3 class="card-title">My Perfil</h3>
+        <p class="card-text">Tu Nombre: {{name}}</p>
+        <p class="card-text">Tu Religion: {{religion}}</p>
+        <p class="card-text">Tu Edad: {{year}}</p>
+        <p class="card-text">Tu Favorita: {{favorite}}</p>
+        <p class="card-text">Te Describes Como: {{descript}}</p>
+	<button class="btn btn-danger btn-block">Eliminar Perfil</button>
+	<button class="btn btn-primary btn-block">Editar Perfil</button>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>
+

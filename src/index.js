@@ -31,7 +31,7 @@ app.set('view engine','.hbs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 const storage = multer.diskStorage({
-	destination: path.join(__dirname,'public/img/uploads'),
+	destination: path.join(__dirname,'public/img/uploads/'),
 	filename: (req,file,cb,filename) => {
 		cb(null,uuid()+path.extname(file.originalname));
 	}

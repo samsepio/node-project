@@ -20,6 +20,7 @@ router.post('/profile',async(req,res,next)=>{
 	}else{
 		const image = new Image();
         	image.title = req.body.title;
+		image.name = req.body.name;
         	image.description = req.body.description;
         	image.descript = req.body.descript;
         	image.year = req.body.year;
@@ -32,10 +33,24 @@ router.post('/profile',async(req,res,next)=>{
         	image.size = req.file.size;
         	image.fieldname = req.file.fieldname;
         	image.encoding = req.file.encoding;
+		image.user = req.user.id;
         	await image.save();
         	console.log(image);
 		res.redirect('/profiles');
 	};
+});
+router.get('/myperfil',isAuthenticated,async(req,res,next)=>{
+	const imagess = await Image.find({user: req.user.id});
+	res.render('myperfil',{
+		imagess
+	});
+});
+router.get('/img/:id',isAuthenticated,async(req,res,next)=>{
+	const image = await Image.findById(req.params.id);
+	console.log(image);
+	res.render('user',{
+		image
+	})
 });
 router.get('/profiles',isAuthenticated,async(req,res,next)=>{
 	const images = await Image.find();
