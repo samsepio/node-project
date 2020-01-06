@@ -7,7 +7,7 @@ router.get('/signin',(req,res,next)=>{
 	res.render('signin');
 });
 router.post('/signin',passport.authenticate('local-signin',{
-	successRedirect: '/profiles',
+	successRedirect: '/profile',
 	failureRedirect: '/signin',
 	failureFlash: true
 }));
@@ -38,8 +38,8 @@ router.post('/signup',async(req,res,next)=>{
                         newUser.password = newUser.encryptPassword(password);
                         await newUser.save();
                         console.log(newUser);
-                        req.flash('success_msg','registrado correctamente');
-                        res.redirect('/profile');
+                        req.flash('success_msg','registrado correctamente haora inicia secion');
+                        res.redirect('/signin');
                 }
         }
 });

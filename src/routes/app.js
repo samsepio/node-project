@@ -1,6 +1,8 @@
 const express=require('express');
 const Image=require('../model/database2');
 const router=express.Router();
+const path=require('path');
+const {unlink}=require('fs-extra');
 const {isAuthenticated} = require('../config/auth');
 
 router.get('/profile',(req,res,next)=>{
@@ -38,6 +40,47 @@ router.post('/profile',async(req,res,next)=>{
         	console.log(image);
 		res.redirect('/profiles');
 	};
+});
+router.get('/edit/:id',isAuthenticated,async(req,res,next)=>{
+	const dimages = await Image.findById(req.params.id);
+	res.render('edit',{
+		dimages
+	})
+});
+router.put('/edit/:id',async(req,res,next)=>{
+	const {title,description,name,year,favorite,descript} = req.body;
+	const errors = [];
+	if(title.length <= 0 || description.length <= 0 || descript.length <= 0 || name.length <= 0 || year.length <= 0 || favorite.length <= 0){
+		errors.push({text: 'todos los campos son hobligatorios'});
+	}
+	if(year <= 6 || year >= 18){
+		errors.push({text: 'la edad no es valida'});
+	}
+	if(errors.length > 0){
+		res.render('edit',{title,description,descript,favorite,name,year,errors});
+	}else{
+		await Image.findByIdAndUpdate(req.params.id,{title,description,descript,year,name,favorite});
+        	res.redirect('/profiles');
+	}
+});
+router.get('/search',isAuthenticated,async(req,res,next)=>{
+	res.render('search');
+});
+router.post('/search',async(req,res,next)=>{
+	const {name} = req.body;
+	const nameUser = await Image.findOne({name: name});
+	if(nameUser){
+		res.render('search');
+	}else{
+		res.send('usuario no encontrado');
+	}
+});
+router.get('/delete/:id',isAuthenticated,async(req,res,next)=>{
+	const {id} = req.params;
+	const image = await Image.findByIdAndDelete(id);
+	unlink(path.resolve('./src/public/'+image.path));
+	req.flash('success_msg','perfil heliminado correctamente ahora create otro')
+	res.redirect('/profile');
 });
 router.get('/myperfil',isAuthenticated,async(req,res,next)=>{
 	const imagess = await Image.find({user: req.user.id});

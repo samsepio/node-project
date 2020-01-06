@@ -30,6 +30,8 @@ app.set('view engine','.hbs');
 
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
+//para aceptar metodos aparte del get y el post metodos como put y delete 
+app.use(methodOverride('_method'));
 const storage = multer.diskStorage({
 	destination: path.join(__dirname,'public/img/uploads/'),
 	filename: (req,file,cb,filename) => {
